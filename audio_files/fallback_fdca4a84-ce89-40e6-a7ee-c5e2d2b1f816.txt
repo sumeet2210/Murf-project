@@ -1,0 +1,18 @@
+
+AUDIO CONTENT (Murf API unavailable):
+Text: The provided document doesn't explicitly list "types" of fire in a categorized way.  However, it implicitly describes different fire scenarios based on the characteristics of the fuel, oxidizer, and ignition source.  For example:
+
+* **Based on the fuel:**  The document mentions fires involving liquid fuels (gasoline, acetone), gaseous fuels (acetylene, propane), and solid fuels (plastics, wood dust, fibers).  Dust explosions (page 3/61) are a specific type of fire involving finely powdered solid fuels.
+
+* **Based on the confinement:**  The document distinguishes between confined explosions (within a vessel or building, page 3/61) and unconfined explosions (in the open, page 3/61), which would also apply to fires.  A BLEVE (Boiling Liquid Expanding Vapor Explosion, page 2/61) is another example of a specific type of fire/explosion scenario.
+
+* **Based on the speed of the reaction:** The document differentiates between deflagration (a slow form of combustion, page 45/61) and detonation (a much faster reaction with a shock wave exceeding the speed of sound, page 45/61).  A fire could be considered a slow deflagration.
+
+
+To summarize, while the document doesn't offer a formal classification of fire types, it highlights the variability in fire behavior based on the materials involved and the conditions under which combustion occurs.
+Voice: en-US-sarah
+Language: en-US
+Generated: 2025-08-28 19:45:17.291995
+
+Note: This would be synthesized speech in a production environment with valid Murf API credentials.
+        

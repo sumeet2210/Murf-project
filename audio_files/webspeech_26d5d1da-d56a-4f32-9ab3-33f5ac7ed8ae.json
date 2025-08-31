@@ -1,0 +1,8 @@
+{
+  "type": "web_speech_fallback",
+  "text": "This PDF is a detailed guide to fire and explosion hazards.  It begins by introducing the fire triangle (fuel, oxidizer, ignition source) (Section 1/61).  A significant portion focuses on flammability, defining flash point, flammability limits (lower and upper flammable limits, or LFL and UFL), and how these are affected by temperature and pressure (Sections 2/61, 10/61, 20/61, 21/61, 33/61, 34/61, 35/61).  It provides methods for calculating mixture flash points (using Raoult's Law) and mixture flammability limits (using Le Chatelier's relationship), complete with worked examples (Sections 11/61-19/61).\n\nThe document also covers minimum oxygen concentration (MOC) needed for combustion (Section 31/61, 32/61), minimum ignition energy (Section 36/61), and autoignition temperature (Section 38/61-41/61), including the concept of auto-oxidation and spontaneous combustion.  Various types of explosions are defined and categorized (Sections 2/61, 45/61), including detonations, deflagrations, and BLEVE (Boiling Liquid Expanding Vapor Explosion), distinguishing between confined and unconfined explosions.  Finally, it presents data on the common sources of major fires (Section 44/61).  The document uses tables and diagrams to visualize key concepts and relationships.  Note that the provided text is truncated, so some sections are incomplete.",
+  "voice_id": "en-US-sarah",
+  "language": "en-US",
+  "generated_at": "2025-08-29T01:27:59.407445",
+  "message": "Using browser Web Speech API as fallback"
+}

@@ -1,0 +1,10 @@
+# Frontend Requirements
+# This is a simple HTML/CSS/JavaScript application
+# No additional dependencies required
+
+# To serve the frontend, you can use:
+# python -m http.server 3000
+
+# Browser Requirements:
+# - Modern browser with Web Speech API support (Chrome, Firefox, Edge)
+# - Microphone access for voice input features

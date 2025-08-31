@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talk to PDF - Voice-Enabled AI Chat</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-file-pdf"></i> Talk to PDF</h2>
+                <button class="new-chat-btn" onclick="createNewChat()">
+                    <i class="fas fa-plus"></i> New Chat
+                </button>
+            </div>
+            
+            <div class="chat-list" id="chatList">
+                <div class="chat-item welcome-item">
+                    <div class="chat-preview">
+                        <h4>Welcome!</h4>
+                        <p>Create a new chat to get started</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="sidebar-footer">
+                <button class="sidebar-toggle mobile-only" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="chat-header">
+                <button class="sidebar-toggle desktop-hidden" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="chat-title">
+                    <h3 id="currentChatTitle">Welcome to Talk to PDF</h3>
+                    <p id="currentChatSubtitle">Create a new chat and upload a PDF to begin</p>
+                </div>
+                <div class="header-controls">
+                    <button class="test-murf-btn" onclick="testMurfAPI()" title="Test Murf TTS API">
+                        🔊 Test Murf API
+                    </button>
+                    <div class="control-group">
+                        <select id="languageSelect" onchange="updateVoiceOptions()">
+                            <option value="en-US">English (US)</option>
+                            <option value="en-GB">English (UK)</option>
+                            <option value="es-ES">Spanish (Spain)</option>
+                            <option value="es-MX">Spanish (Mexico)</option>
+                            <option value="fr-FR">French</option>
+                            <option value="de-DE">German</option>
+                            <option value="it-IT">Italian</option>
+                            <option value="pt-BR">Portuguese (Brazil)</option>
+                            <option value="ja-JP">Japanese</option>
+                            <option value="ko-KR">Korean</option>
+                            <option value="zh-CN">Chinese (Simplified)</option>
+                            <option value="hi-IN">Hindi</option>
+                            <option value="ar-SA">Arabic</option>
+                            <option value="nl-NL">Dutch</option>
+                            <option value="ru-RU">Russian</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <select id="voiceSelect">
+                            <option value="en-US-julia">♀ Julia (Professional & Warm)</option>
+                            <option value="en-US-adam">♂ Adam (Corporate & Leadership)</option>
+                            <option value="en-US-natalie">♀ Natalie (Marketing & Advertising)</option>
+                        </select>
+                    </div>
+                    <button class="voice-mode-btn" id="voiceModeBtn" onclick="toggleVoiceMode()">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    <button class="call-with-pdf-btn" id="callWithPdfBtn" onclick="addCallButtonToChat()" title="Start a call with your PDF">
+                        <i class="fas fa-phone"></i>
+                        Call PDF
+                    </button>
+                    <button class="global-stop-btn" id="globalStopBtn" onclick="stopAllAudio()" title="Stop all audio playbook">
+                        <i class="fas fa-stop"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Chat Content Area -->
+            <div class="chat-content" id="chatContent">
+                <!-- Welcome Screen -->
+                <div class="welcome-screen" id="welcomeScreen">
+                    <div class="welcome-card">
+                        <i class="fas fa-file-pdf welcome-icon"></i>
+                        <h2>Welcome to Talk to PDF</h2>
+                        <p>Create a new chat session and upload a PDF document to start an intelligent conversation about its content.</p>
+                        <div style="background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%); color: white; padding: 15px; border-radius: 8px; margin: 20px 0; font-size: 0.9rem;">
+                            <i class="fas fa-phone"></i> <strong>NEW: Call with PDF!</strong><br>
+                            Have a phone call-like conversation with your document. Just upload a PDF and click "Call PDF" for hands-free interaction!
+                        </div>
+                        <button class="primary-btn" onclick="createNewChat()">
+                            <i class="fas fa-plus"></i> Start New Chat
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PDF Upload Screen -->
+                <div class="upload-screen hidden" id="uploadScreen">
+                    <div class="upload-card">
+                        <div class="upload-area" id="uploadArea">
+                            <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                            <h3>Upload Your PDF</h3>
+                            <p>Drag and drop your PDF here or click to browse</p>
+                            <input type="file" id="pdfInput" accept=".pdf" hidden>
+                            <button class="upload-btn" onclick="document.getElementById('pdfInput').click()">
+                                Choose File
+                            </button>
+                        </div>
+                        <div class="upload-progress hidden" id="uploadProgress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill"></div>
+                            </div>
+                            <p id="progressText">Uploading...</p>
+                        </div>
+                        <div class="upload-actions">
+                            <button class="secondary-btn" onclick="cancelUpload()">
+                                <i class="fas fa-times"></i> Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Messages Area -->
+                <div class="chat-messages-container hidden" id="chatMessagesContainer">
+                    <div class="document-info" id="documentInfo">
+                        <div class="doc-summary">
+                            <div class="doc-header">
+                                <i class="fas fa-file-alt"></i>
+                                <div class="doc-details">
+                                    <h4 id="docFilename">Document</h4>
+                                    <p id="docStats">0 characters</p>
+                                </div>
+                                <button class="collapse-btn" onclick="toggleDocumentInfo()">
+                                    <i class="fas fa-chevron-up"></i>
+                                </button>
+                            </div>
+                            <div class="doc-content" id="docContent">
+                                <p id="docSummary">Document summary will appear here...</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-messages" id="chatMessages">
+                        <!-- Messages will be added here dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Input -->
+            <div class="chat-input-container" id="chatInputContainer">
+                <div class="chat-input-wrapper">
+                    <button class="attachment-btn" onclick="uploadNewPDF()" title="Upload PDF">
+                        <i class="fas fa-paperclip"></i>
+                    </button>
+                    <input type="text" id="messageInput" placeholder="Ask a question about your PDF or upload one to get started..." onkeypress="handleKeyPress(event)">
+                    <button class="voice-input-btn" id="voiceInputBtn" onclick="startVoiceInput()" title="Voice Input">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                    <button class="send-btn" onclick="sendMessage()" title="Send Message">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="voice-status hidden" id="voiceStatus">
+                    <i class="fas fa-microphone pulse"></i>
+                    <span>Listening...</span>
+                </div>
+            </div>
+        </main>
+
+        <!-- Audio Player (Hidden) -->
+        <audio id="audioPlayer" style="display: none;"></audio>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay hidden" id="loadingOverlay">
+            <div class="loading-spinner">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p id="loadingText">Processing...</p>
+            </div>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div class="toast-container" id="toastContainer"></div>
+
+        <!-- Confirmation Modal -->
+        <div class="modal-overlay hidden" id="modalOverlay">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Confirm Action</h3>
+                    <button class="modal-close" onclick="closeModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p id="modalMessage">Are you sure?</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="secondary-btn" onclick="closeModal()">Cancel</button>
+                    <button class="primary-btn" id="modalConfirmBtn" onclick="confirmModal()">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/voice.js"></script>
+    <script src="js/web-speech.js"></script>
+    <script src="js/chat-manager.js"></script>
+    <script src="js/call-manager.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

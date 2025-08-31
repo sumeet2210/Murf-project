@@ -1,0 +1,12 @@
+{
+  "name": "talk-to-pdf-frontend",
+  "version": "1.0.0",
+  "description": "Frontend for Talk to PDF - Voice-enabled AI chat application",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 3000"
+  },
+  "keywords": ["pdf", "ai", "voice", "chat", "murf"],
+  "author": "Talk to PDF Team",
+  "license": "MIT"
+}

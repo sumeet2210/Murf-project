@@ -1,0 +1,11 @@
+
+AUDIO CONTENT (Murf API unavailable):
+Text: The provided document doesn't detail the specific causes of fires in general.  It only describes one accident where a vapor cloud, likely of rich oil and gas, ignited, possibly by the ignition system of engine-driven recompressors.  This is described in the accident report section.
+
+To understand fire causes in general, you'd need to consult a different resource.  Generally, fire requires three elements: a fuel source, an oxidizer (usually oxygen), and an ignition source.  The absence of any one of these prevents a fire.
+Voice: en-US-sarah
+Language: en-US
+Generated: 2025-08-28 19:47:30.510246
+
+Note: This would be synthesized speech in a production environment with valid Murf API credentials.
+        

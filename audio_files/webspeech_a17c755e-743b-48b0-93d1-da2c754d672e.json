@@ -1,0 +1,8 @@
+{
+  "type": "web_speech_fallback",
+  "text": "The Minimum Oxygen Concentration (MOC) is explained in section \"Minimum Oxygen Concentration (MOC)\" (page 31).  It's the lowest oxygen concentration at which a combustion reaction can generate enough energy to sustain itself.  Below the MOC, the reaction can't produce sufficient heat to keep the entire mixture at a temperature needed for continued burning.  Industries often use inerting\u2014diluting the oxygen concentration\u2014to prevent fires by keeping the oxygen level below the MOC.",
+  "voice_id": "en-US-sarah",
+  "language": "en-US",
+  "generated_at": "2025-08-29T01:38:49.102121",
+  "message": "Using browser Web Speech API as fallback"
+}
